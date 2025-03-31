@@ -1,0 +1,71 @@
+services:
+  db:
+    image: postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_PASSWORD: example
+    container_name: db_redmine
+    volumes:
+      - database:/var/lib/postgresql/data
+  redmine:
+    image: redmine:5.1-alpine
+    environment:
+      - REDMINE_DB_POSTGRES=db
+      - REDMINE_DB_PASSWORD=example
+    ports:
+      - 9999:3000
+    volumes:
+      - files:/usr/src/redmine/files
+    depends_on:
+      - db
+  adminer:
+    image: adminer:4
+    restart: always
+    environment:
+      - ADMINER_DEFAULT_SERVER=db
+      - ADMINER_DESIGN=galkaev
+    ports:
+      - 8083:8080
+
+volumes:
+  database:
+  files:
+
+  #1
+  # simple-web-server:
+  #   image: devopsdockeruh/simple-web-service:ubuntu
+  #   ports:
+  #     - 8080:8080
+  #   container_name: web-server
+  #   command: server
+  # volumes:
+  #   - ./text.log:/usr/src/app/text.log
+
+  # whoami:
+  #   image: jwilder/whoami
+  #   ports:
+  #     - 8000
+
+  #2
+  # whoami:
+  #   image: jwilder/whoami
+  #   environment:
+  #     - VIRTUAL_HOST=whoami.colasloth.com
+  # hello:
+  #   image: nginx:1.19-alpine
+  #   volumes:
+  #     - ./hello.html:/usr/share/nginx/html/index.html:ro
+  #   environment:
+  #     - VIRTUAL_HOST=hello.colasloth.com
+  # world:
+  #   image: nginx:1.19-alpine
+  #   volumes:
+  #     - ./world.html:/usr/share/nginx/html/index.html:ro
+  #   environment:
+  #     - VIRTUAL_HOST=world.colasloth.com
+  # proxy:
+  #   image: jwilder/nginx-proxy
+  #   volumes:
+  #     - /var/run/docker.sock:/tmp/docker.sock:ro
+  #   ports:
+  #     - 80:80
