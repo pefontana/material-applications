@@ -3,6 +3,7 @@ FROM node:16
 WORKDIR /app
 
 ENV REACT_APP_BACKEND_URL=http://localhost:8080
+# ENV REACT_APP_BACKEND_URL=http://localhost:80
 
 # Expose the port that serve will use
 EXPOSE 5000
