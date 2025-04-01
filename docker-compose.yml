@@ -13,7 +13,7 @@ services:
       - 8080:8080
     container_name: backend
     environment:
-      - REQUEST_ORIGIN=http://localhost:80
+      - REQUEST_ORIGIN=http://localhost
       - REDIS_HOST=redis
       - POSTGRES_HOST=postgres
       - POSTGRES_USER=postgres
