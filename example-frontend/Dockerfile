@@ -1,4 +1,4 @@
-FROM node:16
+FROM node:16-alpine
 
 WORKDIR /app
 
@@ -18,6 +18,8 @@ RUN npm run build
 
 RUN npm install -g serve
 
+RUN adduser -D executor
+USER executor
 
 # Start the server
 CMD ["serve", "-s", "-l", "5000", "build"]

@@ -1,4 +1,4 @@
-FROM golang:1.16
+FROM golang:1.16-alpine
 
 
 ENV REQUEST_ORIGIN=http://localhost:5000
@@ -9,5 +9,8 @@ WORKDIR /app
 COPY . .
 
 RUN go build
+
+RUN adduser -D executor
+USER executor
 
 CMD [ "./server" ]

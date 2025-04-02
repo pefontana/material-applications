@@ -20,7 +20,7 @@ services:
       - postgres
 
   redis:
-    image: redis:7.4
+    image: redis:7.4-alpine
     container_name: redis
 
   postgres:
